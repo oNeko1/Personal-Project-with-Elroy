@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://d32gmctuekyxs"]
+
+[ext_resource type="Script" uid="uid://casfmk3xxl8hq" path="res://unit_spawn_ui.gd" id="1_7tgkh"]
+[ext_resource type="Texture2D" uid="uid://bxe7m3d0yos87" path="res://Images/Noelle.jpg" id="2_ahiq0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ej4tk"]
+font_size = 8
+font_color = Color(0, 0, 0, 1)
+
+[node name="Unit Spawn UI" type="MarginContainer" unique_id=1193886391]
+custom_minimum_size = Vector2(64, 0)
+size_flags_horizontal = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+script = ExtResource("1_7tgkh")
+
+[node name="Unit Preview" type="TextureButton" parent="." unique_id=1337680313]
+layout_mode = 2
+texture_normal = ExtResource("2_ahiq0")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Unit Name" type="Label" parent="." unique_id=792307943]
+layout_mode = 2
+text = "Noelle"
+label_settings = SubResource("LabelSettings_ej4tk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Unit Preview" to="." method="spawn_unit"]

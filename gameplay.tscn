@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://c7jd5salog4ci"]
+
+[ext_resource type="Texture2D" uid="uid://bxe7m3d0yos87" path="res://Images/Noelle.jpg" id="1_n4psk"]
+[ext_resource type="PackedScene" uid="uid://d32gmctuekyxs" path="res://unit_spawn_ui.tscn" id="2_ej4tk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_n4psk"]
+font_size = 20
+font_color = Color(0, 0, 0, 1)
+
+[node name="Gameplay" type="Node" unique_id=1520298241]
+
+[node name="HUD" type="Control" parent="." unique_id=1116092]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Player Info" type="Control" parent="HUD" unique_id=1803070469]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -128.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Player Commander" type="TextureRect" parent="HUD/Player Info" unique_id=1101897449]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -128.0
+offset_right = 128.0
+grow_vertical = 0
+pivot_offset = Vector2(0, 128)
+texture = ExtResource("1_n4psk")
+expand_mode = 1
+
+[node name="Player Name" type="Label" parent="HUD/Player Info/Player Commander" unique_id=1899582077]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 34.0
+grow_horizontal = 2
+text = "BSRY"
+label_settings = SubResource("LabelSettings_n4psk")
+horizontal_alignment = 1
+
+[node name="Units" type="HBoxContainer" parent="HUD/Player Info" unique_id=1608339866]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 128.0
+offset_top = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Unit Spawn UI" parent="HUD/Player Info/Units" unique_id=1193886391 instance=ExtResource("2_ej4tk")]
+layout_mode = 2
+unit_name = "Noelle"
