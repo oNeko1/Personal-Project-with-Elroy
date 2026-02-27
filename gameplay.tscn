@@ -2,6 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://bxe7m3d0yos87" path="res://Images/Noelle.jpg" id="1_n4psk"]
 [ext_resource type="PackedScene" uid="uid://d32gmctuekyxs" path="res://unit_spawn_ui.tscn" id="2_ej4tk"]
+[ext_resource type="PackedScene" uid="uid://c8vt3vmrcb3xb" path="res://base.tscn" id="3_xuee5"]
+[ext_resource type="Texture2D" uid="uid://cwae6ghrbo5oh" path="res://Images/Ralsei1.png" id="4_smepj"]
+[ext_resource type="Script" uid="uid://ctaykrmi3bu4j" path="res://camera.gd" id="6_cbffv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_n4psk"]
 font_size = 20
@@ -9,16 +12,10 @@ font_color = Color(0, 0, 0, 1)
 
 [node name="Gameplay" type="Node" unique_id=1520298241]
 
-[node name="HUD" type="Control" parent="." unique_id=1116092]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HUD" type="CanvasLayer" parent="." unique_id=22292094]
 
 [node name="Player Info" type="Control" parent="HUD" unique_id=1803070469]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -63,3 +60,22 @@ grow_vertical = 0
 [node name="Unit Spawn UI" parent="HUD/Player Info/Units" unique_id=1193886391 instance=ExtResource("2_ej4tk")]
 layout_mode = 2
 unit_name = "Noelle"
+
+[node name="Unit Spawn UI2" parent="HUD/Player Info/Units" unique_id=250741619 instance=ExtResource("2_ej4tk")]
+layout_mode = 2
+unit_name = "Noelle"
+
+[node name="Battleground" type="Node" parent="." unique_id=1724796918]
+
+[node name="BG" type="Sprite2D" parent="Battleground" unique_id=663570559]
+texture = ExtResource("4_smepj")
+
+[node name="Friendly Units" type="Node" parent="Battleground" unique_id=113176316]
+
+[node name="Base" parent="Battleground/Friendly Units" unique_id=1687801918 instance=ExtResource("3_xuee5")]
+position = Vector2(-878, 0)
+
+[node name="Camera2D" type="Camera2D" parent="Battleground" unique_id=1682667192]
+position = Vector2(-716, -13)
+script = ExtResource("6_cbffv")
+camera_speed = 256.0

@@ -8,8 +8,8 @@ font_size = 8
 font_color = Color(0, 0, 0, 1)
 
 [node name="Unit Spawn UI" type="MarginContainer" unique_id=1193886391]
-custom_minimum_size = Vector2(64, 0)
-size_flags_horizontal = 2
+custom_minimum_size = Vector2(64, 64)
+size_flags_horizontal = 0
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8

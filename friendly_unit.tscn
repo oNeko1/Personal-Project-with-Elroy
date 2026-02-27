@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://drwfkt186n4eh"]
+
+[ext_resource type="Texture2D" uid="uid://bxe7m3d0yos87" path="res://Images/Noelle.jpg" id="1_tulv4"]
+[ext_resource type="Script" uid="uid://552lhet8f08h" path="res://friendly_unit.gd" id="1_yxx3d"]
+
+[node name="Friendly Unit" type="Node2D" unique_id=474601823]
+script = ExtResource("1_yxx3d")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=691005167]
+scale = Vector2(0.056727476, 0.056727484)
+texture = ExtResource("1_tulv4")
