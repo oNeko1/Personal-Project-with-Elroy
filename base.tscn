@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c8vt3vmrcb3xb"]
 
-[ext_resource type="Script" uid="uid://wt0q83hvsndb" path="res://base.gd" id="1_rpg24"]
+[ext_resource type="Script" uid="uid://wt0q83hvsndb" path="res://Scripts/base.gd" id="1_rpg24"]
 [ext_resource type="Texture2D" uid="uid://d1thxqykmfj3q" path="res://Images/bsry_ns.png" id="2_3vi8l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vi8l"]

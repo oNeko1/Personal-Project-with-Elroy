@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d32gmctuekyxs"]
 
-[ext_resource type="Script" uid="uid://casfmk3xxl8hq" path="res://unit_spawn_ui.gd" id="1_7tgkh"]
+[ext_resource type="Script" uid="uid://casfmk3xxl8hq" path="res://Scripts/unit_spawn_ui.gd" id="1_7tgkh"]
 [ext_resource type="Texture2D" uid="uid://bxe7m3d0yos87" path="res://Images/Noelle.jpg" id="2_ahiq0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ej4tk"]
