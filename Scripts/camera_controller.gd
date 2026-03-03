@@ -1,26 +1,31 @@
 extends Node
 
 # Vars
+var game_manager		: GameManager	# Reference to %"Game Manager"
 var initial_position	: Vector3		# Initial position of the camera at the start of the scene
-var zoomed_in 			: bool = false
-var zooming_in			: bool = false	# True if camera is in zooming in Tween
+var zoomed_in			: bool = false	# True if camera is in zoomed in state
 var focused_unit_pos	: Vector3		#Position of the unit the camera is zomomed into (When selected))
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
 	# Initialize variables
-	initial_position = self.global_position
+	game_manager 		= %"Game Manager"
+	initial_position 	= self.global_position
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
+# Immediately set camera_is_transitioning to true
+# If any other functions like game_manager.toggle_selected_character_ui()
+# requires game_manager.camera_is_transitioning to be false
+# then make sure to call this function last
 func toggle_zoom(unit : Node3D) -> void:
 	
 	# If in the middle of Tween zooming in then don't do anything
-	if (zooming_in): return
+	if (game_manager.camera_is_transitioning): return
 	
 	# Zoom in or out based on whether camera is already zoomed into something
 	if (!zoomed_in): zoom_into(unit)
@@ -30,7 +35,7 @@ func toggle_zoom(unit : Node3D) -> void:
 func zoom_into(unit : Node3D) -> void:
 	
 	var target_pos = unit.global_position + Vector3(0, 0.5, 1.5)
-	zooming_in = true
+	game_manager.camera_is_transitioning = true
 	
 	# Create the Tween and settings
 	var tween = create_tween()
@@ -50,7 +55,7 @@ func zoom_out() -> void:
 	#if (!zoomed_in): return
 	
 	var target_pos = initial_position
-	zooming_in = true
+	game_manager.camera_is_transitioning = true
 	
 	# Create the Tween and settings
 	var tween = create_tween()
@@ -65,4 +70,4 @@ func zoom_out() -> void:
 
 
 func set_zooming_in(toggle : bool) -> void:
-	zooming_in = toggle
+	game_manager.camera_is_transitioning = toggle

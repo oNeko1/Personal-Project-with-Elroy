@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c3484ykjsg4gy" path="res://Images/Grass.png" id="4_smepj"]
 [ext_resource type="Script" uid="uid://rr8b50yxx50e" path="res://Scripts/camera_controller.gd" id="5_0m7cd"]
 [ext_resource type="Texture2D" uid="uid://dpflodnfswlm8" path="res://Images/Sky Temp.jpg" id="5_cbffv"]
-[ext_resource type="Script" uid="uid://bwnd8iqhn6c1i" path="res://Scripts/unit.gd" id="7_fbudy"]
+[ext_resource type="Script" uid="uid://bwnd8iqhn6c1i" path="res://unit.gd" id="7_fbudy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_n4psk"]
 font_size = 20
@@ -43,8 +43,7 @@ enemy_info_text = NodePath("../../HUD/Debug Information/Debug Info Enemy")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=22292094]
 
-[node name="Selected Character Info" type="Control" parent="HUD" unique_id=1803070469]
-unique_name_in_owner = true
+[node name="Player Info" type="Control" parent="HUD" unique_id=1803070469]
 layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
@@ -54,8 +53,7 @@ offset_top = -128.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Selected Character Icon" type="TextureRect" parent="HUD/Selected Character Info" unique_id=1101897449]
-unique_name_in_owner = true
+[node name="Player Commander" type="TextureRect" parent="HUD/Player Info" unique_id=1101897449]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -67,8 +65,7 @@ pivot_offset = Vector2(0, 128)
 texture = ExtResource("1_n4psk")
 expand_mode = 1
 
-[node name="Selected Character Name" type="Label" parent="HUD/Selected Character Info/Selected Character Icon" unique_id=1899582077]
-unique_name_in_owner = true
+[node name="Player Name" type="Label" parent="HUD/Player Info/Player Commander" unique_id=1899582077]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -78,7 +75,7 @@ text = "BSRY"
 label_settings = SubResource("LabelSettings_n4psk")
 horizontal_alignment = 1
 
-[node name="Skills" type="HBoxContainer" parent="HUD/Selected Character Info" unique_id=1608339866]
+[node name="Units" type="HBoxContainer" parent="HUD/Player Info" unique_id=1608339866]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -89,11 +86,15 @@ offset_top = -64.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Skill 1" parent="HUD/Selected Character Info/Skills" unique_id=1193886391 instance=ExtResource("2_ej4tk")]
+[node name="Unit Spawn UI" parent="HUD/Player Info/Units" unique_id=1193886391 instance=ExtResource("2_ej4tk")]
 layout_mode = 2
 unit_name = "Noelle"
 
-[node name="Test Buttons" type="HBoxContainer" parent="HUD/Selected Character Info" unique_id=628597048]
+[node name="Unit Spawn UI2" parent="HUD/Player Info/Units" unique_id=250741619 instance=ExtResource("2_ej4tk")]
+layout_mode = 2
+unit_name = "Noelle"
+
+[node name="Test Buttons" type="HBoxContainer" parent="HUD/Player Info" unique_id=628597048]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -105,7 +106,7 @@ offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="End Turn" type="Button" parent="HUD/Selected Character Info/Test Buttons" unique_id=1137292106]
+[node name="Button" type="Button" parent="HUD/Player Info/Test Buttons" unique_id=1137292106]
 layout_mode = 2
 text = "End Turn"
 
@@ -200,7 +201,7 @@ mesh = SubResource("TorusMesh_smepj")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Battleground" unique_id=211841542]
 
-[connection signal="pressed" from="HUD/Selected Character Info/Test Buttons/End Turn" to="Singletons/Game Manager" method="end_turn"]
+[connection signal="pressed" from="HUD/Player Info/Test Buttons/Button" to="Singletons/Game Manager" method="end_turn"]
 [connection signal="input_event" from="Battleground/Player Side/Commander Position/Placeholder Commander/Area3D" to="Battleground/Player Side/Commander Position/Placeholder Commander" method="_on_area_3d_input_event"]
 [connection signal="mouse_entered" from="Battleground/Player Side/Commander Position/Placeholder Commander/Area3D" to="Battleground/Player Side/Commander Position/Placeholder Commander" method="_on_area_3d_mouse_entered"]
 [connection signal="mouse_exited" from="Battleground/Player Side/Commander Position/Placeholder Commander/Area3D" to="Battleground/Player Side/Commander Position/Placeholder Commander" method="_on_area_3d_mouse_exited"]
