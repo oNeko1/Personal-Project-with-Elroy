@@ -1,4 +1,5 @@
-extends Node
+class_name GameCameraController
+extends Camera3D
 
 # Vars
 var game_manager		: GameManager # Reference to %"Game Manager"
@@ -12,11 +13,6 @@ func _ready() -> void:
 	# Initialize variables
 	game_manager 		= %"Game Manager"
 	initial_position 	= self.global_position
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 # Immediately set camera_is_transitioning to true
 # If any other functions like game_manager.toggle_selected_character_ui()

@@ -15,12 +15,12 @@ var selected_character_name		: Label
 # Player Resources
 @export_group("Player Resources	")
 @export var player_mana 			: int = 0
-@export var player_commander_health	: int = 10
+## Player Commander Health is Fetched from the Commander Unit Node
 
 # Enemy Resources
 @export_group("Enemy Resources	")
 @export var enemy_mana				: int = 0
-@export var enemy_commander_health	: int = 100
+## Enemy Commander Health is Fetched from the Commander Unit Node
 
 # Game State Management
 @export_group("Game State Management")
@@ -33,6 +33,9 @@ var unit_currently_selected			: Unit			# Unit that is currently selected by play
 @export var player_units			: Array[Unit]
 @export var enemy_units				: Array[Unit]
 
+@onready var player_side: FieldSide = %"Player Side"
+@onready var enemy_side: FieldSide = %"Enemy Side"
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
@@ -44,9 +47,13 @@ func _ready() -> void:
 	
 	# Initialize all the is_enemy of all units
 	for unit in player_units:	# Do for player side
+		assert(is_instance_valid(unit))
+		unit.add_to_group("Friendly");
 		unit.is_enemy = false
 	for unit in enemy_units:	# Do for enemy side
+		assert(is_instance_valid(unit))
 		unit.is_enemy = true
+		unit.add_to_group("Hostile");
 	
 	# Deactivate all the skill buttons initially
 	for i in range(skill_buttons.size()):
@@ -54,11 +61,6 @@ func _ready() -> void:
 	
 	# SetActive false for selected_character_ui
 	set_active_selected_character_ui(false)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 # Everything that happens when end turn
 func end_turn() -> void:
@@ -74,8 +76,11 @@ func end_turn_for_player() -> void:
 	for unit in player_units:
 		unit.unit_turn_done = false
 	
+	# First Child should be Commander
+	var commander : Unit = player_side.commander_marker.get_child(0);
+	
 	# Update debug text
-	player_info_text.text = "Player Info  | Mana: %s | Health: %s" % [player_mana, player_commander_health]
+	player_info_text.text = "Player Info  | Mana: %s | Health: %s" % [player_mana, commander.health]
 	print("Ended turn for player")
 
 
@@ -85,9 +90,11 @@ func end_turn_for_enemy() -> void:
 	# Reset the turns for all units in enemy's side
 	for unit in enemy_units:
 		unit.unit_turn_done = false
+		
+	var commander : Unit = player_side.commander_marker.get_child(0);
 	
 	# Update debug text
-	enemy_info_text.text = "Enemy Info | Mana: %s | Health: %s" % [enemy_mana, enemy_commander_health]
+	enemy_info_text.text = "Enemy Info | Mana: %s | Health: %s" % [enemy_mana, commander.health]
 	print("Ended turn for enemy")
 
 

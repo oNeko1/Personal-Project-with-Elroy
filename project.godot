@@ -15,6 +15,10 @@ run/main_scene="uid://c7jd5salog4ci"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[global_group]
+
+Unit="Specifies this Object as a Unit"
+
 [input]
 
 Up={

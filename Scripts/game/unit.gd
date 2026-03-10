@@ -1,5 +1,5 @@
 class_name Unit
-extends MeshInstance3D
+extends Node3D
 
 # Unit stats
 @export_group("Unit stats")
@@ -7,16 +7,15 @@ extends MeshInstance3D
 @export var health				: int = 100
 @export var attack_power		: int = 10
 
-# Serialize Nodes
-@export_group("Serialize Nodes")
-@export var unit_name_label3d	: Label3D
+@onready var unit_name_label3d : Label3D = $"Area3D/Unit Name";
 
 # Unit state control
+@export_category("State")
 var unit_currently_selected		: bool = false
 @export var unit_turn_done		: bool = false
 var is_enemy					: bool
 
-@onready var game_camera : Camera3D = get_viewport().get_camera_3d();
+@onready var game_camera : GameCameraController = get_viewport().get_camera_3d();
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -89,21 +88,15 @@ func set_active_unit_name_label3d(set_active : bool) -> void:
 # should auto deselect after using a skill
 # Used to de-select a unit after using a move or after their turn has ended
 func toggle_select_unit() -> void:
-		
+	
+	var game_manager : GameManager = %"Game Manager";
+	
 	# Call GameManager toggle_selected_character_ui
-	if (%"Game Manager".has_method("toggle_selected_character_ui")):
-		%"Game Manager".toggle_selected_character_ui(self)
-	else : 
-		assert(false, "%GameManager does not have toggle_selected_character_ui 
-		function (SHOULD NOT HAPPEN)")
+	game_manager.toggle_selected_character_ui(self)
 	
 	# Call camera_controller zoom_into function
-	if (game_camera.has_method("toggle_zoom")):
-		game_camera.toggle_zoom(self)
-	else : 
-		assert(false, "camera does not have toggle_zoom 
-		function (SHOULD NOT HAPPEN)")
-		
+	game_camera.toggle_zoom(self)
+	
 	# Toggle whether unit is currently selected
 	unit_currently_selected = !unit_currently_selected
 	set_active_unit_name_label3d(unit_currently_selected)
