@@ -1,7 +1,7 @@
 extends Node
 
 # Vars
-var game_manager		: GameManager	# Reference to %"Game Manager"
+var game_manager		: GameManager # Reference to %"Game Manager"
 var initial_position	: Vector3		# Initial position of the camera at the start of the scene
 var zoomed_in			: bool = false	# True if camera is in zoomed in state
 var focused_unit_pos	: Vector3		#Position of the unit the camera is zomomed into (When selected))

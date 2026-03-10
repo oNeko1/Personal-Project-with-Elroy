@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c1u3ix4i0rrj5"]
+
+[ext_resource type="TorusMesh" uid="uid://cwi4jjkac5tg0" path="res://meshes/commander_marker.tres" id="1_s7bxu"]
+
+[node name="Commander Marker" type="Node3D" unique_id=456711919]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1648432763]
+mesh = ExtResource("1_s7bxu")

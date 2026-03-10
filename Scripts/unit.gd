@@ -16,6 +16,8 @@ var unit_currently_selected		: bool = false
 @export var unit_turn_done		: bool = false
 var is_enemy					: bool
 
+@onready var game_camera : Camera3D = get_viewport().get_camera_3d();
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
@@ -25,7 +27,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	look_at(game_camera.global_position);
 
 
 func _on_area_3d_mouse_entered() -> void:
@@ -87,8 +89,6 @@ func set_active_unit_name_label3d(set_active : bool) -> void:
 # should auto deselect after using a skill
 # Used to de-select a unit after using a move or after their turn has ended
 func toggle_select_unit() -> void:
-	
-	var camera = %"Main Camera"
 		
 	# Call GameManager toggle_selected_character_ui
 	if (%"Game Manager".has_method("toggle_selected_character_ui")):
@@ -98,8 +98,8 @@ func toggle_select_unit() -> void:
 		function (SHOULD NOT HAPPEN)")
 	
 	# Call camera_controller zoom_into function
-	if (camera.has_method("toggle_zoom")):
-		camera.toggle_zoom(self)
+	if (game_camera.has_method("toggle_zoom")):
+		game_camera.toggle_zoom(self)
 	else : 
 		assert(false, "camera does not have toggle_zoom 
 		function (SHOULD NOT HAPPEN)")

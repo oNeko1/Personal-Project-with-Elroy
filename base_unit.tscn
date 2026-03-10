@@ -3,28 +3,32 @@
 [ext_resource type="Script" uid="uid://bwnd8iqhn6c1i" path="res://Scripts/unit.gd" id="1_sl3h6"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_cbffv"]
+flip_faces = true
+size = Vector2(0.25, 0.5)
+center_offset = Vector3(0, 0.25, 0)
+orientation = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fbudy"]
+size = Vector3(0.6, 1.2, 0.3)
 
 [node name="Placeholder Commander" type="MeshInstance3D" unique_id=127961555 node_paths=PackedStringArray("unit_name_label3d")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("PlaneMesh_cbffv")
 script = ExtResource("1_sl3h6")
 unit_name = "Player"
 unit_name_label3d = NodePath("Area3D/Unit Name")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=737255578]
-transform = Transform3D(3.3333328, 0, 0, 0, 3.3333328, 0, 0, 0, 3.3333328, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=295325930]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 5.5879354e-09, 0.24000001, 0)
 shape = SubResource("BoxShape3D_fbudy")
 debug_fill = false
 
 [node name="Unit Name" type="Label3D" parent="Area3D" unique_id=1895514823]
-transform = Transform3D(1, 0, 0, 0, -4.3711392e-08, 1, 0, -1, -4.3711392e-08, 0, 0, -0.5)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.64000005, 0)
 text = "Unit Name
 "
+font_size = 18
 
 [connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]
 [connection signal="mouse_entered" from="Area3D" to="." method="_on_area_3d_mouse_entered"]
