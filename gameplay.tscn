@@ -3,11 +3,12 @@
 [ext_resource type="Script" uid="uid://dnsaigshyl7nt" path="res://Scripts/game_manager.gd" id="1_cbffv"]
 [ext_resource type="Texture2D" uid="uid://bxe7m3d0yos87" path="res://Images/Noelle.jpg" id="1_n4psk"]
 [ext_resource type="PackedScene" uid="uid://d32gmctuekyxs" path="res://unit_spawn_ui.tscn" id="2_ej4tk"]
+[ext_resource type="Script" uid="uid://0cgcoghvobcy" path="res://skill_button.gd" id="3_2ihbs"]
 [ext_resource type="PackedScene" uid="uid://c8vt3vmrcb3xb" path="res://base.tscn" id="3_xuee5"]
 [ext_resource type="Texture2D" uid="uid://c3484ykjsg4gy" path="res://Images/Grass.png" id="4_smepj"]
 [ext_resource type="Script" uid="uid://rr8b50yxx50e" path="res://Scripts/camera_controller.gd" id="5_0m7cd"]
 [ext_resource type="Texture2D" uid="uid://dpflodnfswlm8" path="res://Images/Sky Temp.jpg" id="5_cbffv"]
-[ext_resource type="Script" uid="uid://bwnd8iqhn6c1i" path="res://Scripts/unit.gd" id="7_fbudy"]
+[ext_resource type="PackedScene" uid="uid://b4jpoiji7e8uo" path="res://base_unit.tscn" id="8_0m7cd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_n4psk"]
 font_size = 20
@@ -27,19 +28,18 @@ material = SubResource("StandardMaterial3D_2ihbs")
 
 [sub_resource type="TorusMesh" id="TorusMesh_smepj"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_cbffv"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_fbudy"]
-
 [node name="Gameplay" type="Node" unique_id=1520298241]
 
 [node name="Singletons" type="Node" parent="." unique_id=1620605301]
 
-[node name="Game Manager" type="Node" parent="Singletons" unique_id=722186434 node_paths=PackedStringArray("player_info_text", "enemy_info_text")]
+[node name="Game Manager" type="Node" parent="Singletons" unique_id=722186434 node_paths=PackedStringArray("player_info_text", "enemy_info_text", "skill_buttons", "player_units", "enemy_units")]
 unique_name_in_owner = true
 script = ExtResource("1_cbffv")
 player_info_text = NodePath("../../HUD/Debug Information/Debug Info Player")
 enemy_info_text = NodePath("../../HUD/Debug Information/Debug Info Enemy")
+skill_buttons = [NodePath("../../HUD/Selected Character Info/Skills/Test Skill 1")]
+player_units = [NodePath("../../Battleground/Player Side/Commander Position/Placeholder Commander")]
+enemy_units = [NodePath("../../Battleground/Enemy Side/Commander Position/Placeholder Commander")]
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=22292094]
 
@@ -89,24 +89,35 @@ offset_top = -64.0
 grow_horizontal = 2
 grow_vertical = 0
 
+[node name="Test Skill 1" type="TextureButton" parent="HUD/Selected Character Info/Skills" unique_id=1365229406]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("1_n4psk")
+ignore_texture_size = true
+stretch_mode = 0
+flip_h = true
+flip_v = true
+script = ExtResource("3_2ihbs")
+
 [node name="Skill 1" parent="HUD/Selected Character Info/Skills" unique_id=1193886391 instance=ExtResource("2_ej4tk")]
 layout_mode = 2
 unit_name = "Noelle"
 
 [node name="Test Buttons" type="HBoxContainer" parent="HUD/Selected Character Info" unique_id=628597048]
 layout_mode = 1
-anchors_preset = 12
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1063.0
+offset_left = -205.0
 offset_top = -80.0
-offset_right = -1.0
-grow_horizontal = 2
+grow_horizontal = 0
 grow_vertical = 0
 
 [node name="End Turn" type="Button" parent="HUD/Selected Character Info/Test Buttons" unique_id=1137292106]
 layout_mode = 2
+size_flags_horizontal = 10
 text = "End Turn"
 
 [node name="Debug Information" type="Node" parent="HUD" unique_id=1892498037]
@@ -129,7 +140,8 @@ text = "Enemy Info | Mana: "
 [node name="Base" parent="Battleground/Friendly Units" unique_id=1687801918 instance=ExtResource("3_xuee5")]
 position = Vector2(-878, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Battleground" unique_id=1292711313]
+[node name="Main Camera" type="Camera3D" parent="Battleground" unique_id=1292711313]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.9533278, 0.3019373, 0, -0.3019373, 0.9533278, 0, 1, 2)
 script = ExtResource("5_0m7cd")
 
@@ -147,18 +159,8 @@ mesh = SubResource("PlaneMesh_1qy1k")
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -2.5, 0, 0)
 mesh = SubResource("TorusMesh_smepj")
 
-[node name="Placeholder Commander" type="MeshInstance3D" parent="Battleground/Player Side/Commander Position" unique_id=617844257]
+[node name="Placeholder Commander" parent="Battleground/Player Side/Commander Position" unique_id=127961555 instance=ExtResource("8_0m7cd")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1, 0)
-mesh = SubResource("PlaneMesh_cbffv")
-script = ExtResource("7_fbudy")
-
-[node name="Area3D" type="Area3D" parent="Battleground/Player Side/Commander Position/Placeholder Commander" unique_id=1875615979]
-transform = Transform3D(3.3333328, 0, 0, 0, 3.3333328, 0, 0, 0, 3.3333328, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Battleground/Player Side/Commander Position/Placeholder Commander/Area3D" unique_id=738034308]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
-shape = SubResource("BoxShape3D_fbudy")
-debug_fill = false
 
 [node name="Unit Position 1" type="MeshInstance3D" parent="Battleground/Player Side" unique_id=1308866680]
 transform = Transform3D(0.19999132, 0.0015042414, -0.0010996956, -0.0015045088, 0.19999433, -4.4506494e-05, 0.0010993296, 5.278095e-05, 0.19999698, -1.81, 0, -0.35)
@@ -182,6 +184,10 @@ mesh = SubResource("TorusMesh_smepj")
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 2.5, 0, 0)
 mesh = SubResource("TorusMesh_smepj")
 
+[node name="Placeholder Commander" parent="Battleground/Enemy Side/Commander Position" unique_id=87039570 instance=ExtResource("8_0m7cd")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1, 0)
+unit_name = "Enemy"
+
 [node name="Unit Position 1" type="MeshInstance3D" parent="Battleground/Enemy Side" unique_id=1137482230]
 transform = Transform3D(0.19999132, 0.0015042414, -0.0010996956, -0.0015045088, 0.19999433, -4.4506494e-05, 0.0010993296, 5.278095e-05, 0.19999698, 1.81, 0, -0.35)
 mesh = SubResource("TorusMesh_smepj")
@@ -200,7 +206,5 @@ mesh = SubResource("TorusMesh_smepj")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Battleground" unique_id=211841542]
 
+[connection signal="pressed" from="HUD/Selected Character Info/Skills/Test Skill 1" to="HUD/Selected Character Info/Skills/Test Skill 1" method="_on_pressed"]
 [connection signal="pressed" from="HUD/Selected Character Info/Test Buttons/End Turn" to="Singletons/Game Manager" method="end_turn"]
-[connection signal="input_event" from="Battleground/Player Side/Commander Position/Placeholder Commander/Area3D" to="Battleground/Player Side/Commander Position/Placeholder Commander" method="_on_area_3d_input_event"]
-[connection signal="mouse_entered" from="Battleground/Player Side/Commander Position/Placeholder Commander/Area3D" to="Battleground/Player Side/Commander Position/Placeholder Commander" method="_on_area_3d_mouse_entered"]
-[connection signal="mouse_exited" from="Battleground/Player Side/Commander Position/Placeholder Commander/Area3D" to="Battleground/Player Side/Commander Position/Placeholder Commander" method="_on_area_3d_mouse_exited"]
