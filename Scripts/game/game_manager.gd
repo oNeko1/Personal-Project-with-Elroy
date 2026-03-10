@@ -77,7 +77,7 @@ func end_turn_for_player() -> void:
 		unit.unit_turn_done = false
 	
 	# First Child should be Commander
-	var commander : Unit = player_side.commander_marker.get_child(0);
+	var commander : Unit = player_side.commander_marker.unit;
 	
 	# Update debug text
 	player_info_text.text = "Player Info  | Mana: %s | Health: %s" % [player_mana, commander.health]
@@ -91,7 +91,7 @@ func end_turn_for_enemy() -> void:
 	for unit in enemy_units:
 		unit.unit_turn_done = false
 		
-	var commander : Unit = player_side.commander_marker.get_child(0);
+	var commander : Unit = player_side.commander_marker.unit;
 	
 	# Update debug text
 	enemy_info_text.text = "Enemy Info | Mana: %s | Health: %s" % [enemy_mana, commander.health]
@@ -197,6 +197,7 @@ func toggle_skill_button(index : int, active : bool) -> void:
 	# Set the skill_button to be the skill of the
 	# currently selected unit
 	if (unit_currently_selected != null):
+		print ("HAHAHAHA")
 		skill_button.skill = Callable(unit_currently_selected, "test_skill_1")
 	else:
 		skill_button.skill = func(): pass # Set the skill to empty lambda

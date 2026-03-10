@@ -5,13 +5,14 @@
 [ext_resource type="Texture2D" uid="uid://d1thxqykmfj3q" path="res://Images/bsry_ns.png" id="2_0m7cd"]
 [ext_resource type="Script" uid="uid://0cgcoghvobcy" path="res://skill_button.gd" id="3_2ihbs"]
 [ext_resource type="Texture2D" uid="uid://c3484ykjsg4gy" path="res://Images/Grass.png" id="4_smepj"]
-[ext_resource type="Environment" uid="uid://cke6oeurg66uk" path="res://game_environment.tres" id="5_3n40r"]
+[ext_resource type="Environment" uid="uid://h803ea2s51pw" path="res://game_environment.tres" id="5_3n40r"]
 [ext_resource type="Texture2D" uid="uid://dpflodnfswlm8" path="res://Images/Sky Temp.jpg" id="5_cbffv"]
 [ext_resource type="Script" uid="uid://rr8b50yxx50e" path="res://Scripts/game/camera_controller.gd" id="6_45aep"]
 [ext_resource type="PackedScene" uid="uid://b4jpoiji7e8uo" path="res://base_unit.tscn" id="8_0m7cd"]
 [ext_resource type="PackedScene" uid="uid://bmye28lrencpa" path="res://unit_marker.tscn" id="9_1qy1k"]
 [ext_resource type="PackedScene" uid="uid://c1u3ix4i0rrj5" path="res://commander_marker.tscn" id="9_3n40r"]
 [ext_resource type="Script" uid="uid://dxjaw3ewa5q5r" path="res://Scripts/game/field_side.gd" id="9_45aep"]
+[ext_resource type="Script" uid="uid://ds5ioj772capv" path="res://Scripts/game/unit_marker.gd" id="11_tyrfw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_n4psk"]
 font_size = 20
@@ -35,11 +36,12 @@ material = SubResource("StandardMaterial3D_2ihbs")
 
 [node name="Singletons" type="Node" parent="." unique_id=1620605301]
 
-[node name="Game Manager" type="Node" parent="Singletons" unique_id=722186434 node_paths=PackedStringArray("player_info_text", "enemy_info_text", "player_units", "enemy_units")]
+[node name="Game Manager" type="Node" parent="Singletons" unique_id=722186434 node_paths=PackedStringArray("player_info_text", "enemy_info_text", "skill_buttons", "player_units", "enemy_units")]
 unique_name_in_owner = true
 script = ExtResource("1_3n40r")
 player_info_text = NodePath("../../HUD/Debug Information/Debug Info Player")
 enemy_info_text = NodePath("../../HUD/Debug Information/Debug Info Enemy")
+skill_buttons = [NodePath("../../HUD/Selected Character Info/Skills/Test Skill 1")]
 player_units = [NodePath("../../Battleground/Player Side/Commander Marker/Commander")]
 enemy_units = [NodePath("../../Battleground/Enemy Side/Commander Marker/Commander")]
 
@@ -157,18 +159,24 @@ unit_markers = [NodePath("Unit Marker"), NodePath("Unit Marker2"), NodePath("Uni
 
 [node name="Unit Marker" parent="Battleground/Player Side" unique_id=2100096520 instance=ExtResource("9_1qy1k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8000001, 0, -0.4)
+script = ExtResource("11_tyrfw")
 
 [node name="Unit Marker2" parent="Battleground/Player Side" unique_id=1127739866 instance=ExtResource("9_1qy1k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8000001, 0, -0.4)
+script = ExtResource("11_tyrfw")
 
 [node name="Unit Marker3" parent="Battleground/Player Side" unique_id=2020033994 instance=ExtResource("9_1qy1k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8000001, 0, 0.6)
+script = ExtResource("11_tyrfw")
 
 [node name="Unit Marker4" parent="Battleground/Player Side" unique_id=1435066035 instance=ExtResource("9_1qy1k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8000001, 0, 0.6)
+script = ExtResource("11_tyrfw")
 
-[node name="Commander Marker" parent="Battleground/Player Side" unique_id=456711919 instance=ExtResource("9_3n40r")]
+[node name="Commander Marker" parent="Battleground/Player Side" unique_id=456711919 node_paths=PackedStringArray("unit") instance=ExtResource("9_3n40r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 0)
+script = ExtResource("11_tyrfw")
+unit = NodePath("Commander")
 
 [node name="Commander" parent="Battleground/Player Side/Commander Marker" unique_id=864296948 instance=ExtResource("8_0m7cd")]
 unit_name = "player"
@@ -181,18 +189,24 @@ unit_markers = [NodePath("Unit Marker"), NodePath("Unit Marker2"), NodePath("Uni
 
 [node name="Unit Marker" parent="Battleground/Enemy Side" unique_id=1151876877 instance=ExtResource("9_1qy1k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -0.4)
+script = ExtResource("11_tyrfw")
 
 [node name="Unit Marker2" parent="Battleground/Enemy Side" unique_id=1356938071 instance=ExtResource("9_1qy1k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0, -0.4)
+script = ExtResource("11_tyrfw")
 
 [node name="Unit Marker3" parent="Battleground/Enemy Side" unique_id=1129229444 instance=ExtResource("9_1qy1k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0, 0.6)
+script = ExtResource("11_tyrfw")
 
 [node name="Unit Marker4" parent="Battleground/Enemy Side" unique_id=1619966762 instance=ExtResource("9_1qy1k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 0.6)
+script = ExtResource("11_tyrfw")
 
-[node name="Commander Marker" parent="Battleground/Enemy Side" unique_id=1930247548 instance=ExtResource("9_3n40r")]
+[node name="Commander Marker" parent="Battleground/Enemy Side" unique_id=1930247548 node_paths=PackedStringArray("unit") instance=ExtResource("9_3n40r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0)
+script = ExtResource("11_tyrfw")
+unit = NodePath("Commander")
 
 [node name="Commander" parent="Battleground/Enemy Side/Commander Marker" unique_id=2018990911 instance=ExtResource("8_0m7cd")]
 unit_name = "bsry"
