@@ -7,6 +7,10 @@ extends Node3D
 @export var health				: int = 100
 @export var attack_power		: int = 10
 
+# If a unit has skill_1 but not skill_2 and skill_3
+# Then this should be [1, 0, 0]
+@export var have_skill			: Array[int] = [1, 0, 0]
+
 @onready var unit_name_label3d : Label3D = $"Area3D/Unit Name";
 
 # Unit state control
@@ -102,12 +106,18 @@ func toggle_select_unit() -> void:
 	set_active_unit_name_label3d(unit_currently_selected)
 
 
-# Debug
-# Skill should return true if the unit possesses the skill
-# Eg. if a unit has 2 skills then skill_1 and skill_2
-# should return true while skill_3 should return false
-# STILL WORKING ON THE TRUE FALSE
-func test_skill_1() -> bool:
+# have_skill[skill number - 1] should return true
+# If the unit posesses that skill.
+func skill_1() -> void:
 	unit_turn_done = true
 	toggle_select_unit()
-	return true
+
+
+func skill_2() -> void:
+	unit_turn_done = true
+	toggle_select_unit()
+
+
+func skill_3() -> void:
+	unit_turn_done = true
+	toggle_select_unit()

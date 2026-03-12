@@ -1,5 +1,5 @@
 class_name FieldSide
 extends Node
 
-@export var commander_marker : UnitMarker;
+# Commander will be the first unit in the array
 @export var unit_markers : Array[UnitMarker];

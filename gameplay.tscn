@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c1u3ix4i0rrj5" path="res://commander_marker.tscn" id="9_3n40r"]
 [ext_resource type="Script" uid="uid://dxjaw3ewa5q5r" path="res://Scripts/game/field_side.gd" id="9_45aep"]
 [ext_resource type="Script" uid="uid://ds5ioj772capv" path="res://Scripts/game/unit_marker.gd" id="11_tyrfw"]
+[ext_resource type="Script" uid="uid://brsp8iphej1bg" path="res://Scripts/game/Units/commander_unit.gd" id="14_eod45"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_n4psk"]
 font_size = 20
@@ -36,14 +37,12 @@ material = SubResource("StandardMaterial3D_2ihbs")
 
 [node name="Singletons" type="Node" parent="." unique_id=1620605301]
 
-[node name="Game Manager" type="Node" parent="Singletons" unique_id=722186434 node_paths=PackedStringArray("player_info_text", "enemy_info_text", "skill_buttons", "player_units", "enemy_units")]
+[node name="Game Manager" type="Node" parent="Singletons" unique_id=722186434 node_paths=PackedStringArray("player_info_text", "enemy_info_text", "skill_buttons")]
 unique_name_in_owner = true
 script = ExtResource("1_3n40r")
 player_info_text = NodePath("../../HUD/Debug Information/Debug Info Player")
 enemy_info_text = NodePath("../../HUD/Debug Information/Debug Info Enemy")
-skill_buttons = [NodePath("../../HUD/Selected Character Info/Skills/Test Skill 1")]
-player_units = [NodePath("../../Battleground/Player Side/Commander Marker/Commander")]
-enemy_units = [NodePath("../../Battleground/Enemy Side/Commander Marker/Commander")]
+skill_buttons = [NodePath("../../HUD/Selected Character Info/Skills/Skill Button 1"), NodePath("../../HUD/Selected Character Info/Skills/Skill Button 2"), NodePath("../../HUD/Selected Character Info/Skills/Skill Button 3")]
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=22292094]
 
@@ -109,7 +108,7 @@ offset_top = -64.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Test Skill 1" type="TextureButton" parent="HUD/Selected Character Info/Skills" unique_id=1365229406]
+[node name="Skill Button 1" type="TextureButton" parent="HUD/Selected Character Info/Skills" unique_id=1365229406]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 texture_normal = ExtResource("1_n4psk")
@@ -117,6 +116,23 @@ ignore_texture_size = true
 stretch_mode = 0
 flip_h = true
 flip_v = true
+script = ExtResource("3_2ihbs")
+
+[node name="Skill Button 2" type="TextureButton" parent="HUD/Selected Character Info/Skills" unique_id=618608632]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("1_n4psk")
+ignore_texture_size = true
+stretch_mode = 0
+flip_v = true
+script = ExtResource("3_2ihbs")
+
+[node name="Skill Button 3" type="TextureButton" parent="HUD/Selected Character Info/Skills" unique_id=1300702426]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("1_n4psk")
+ignore_texture_size = true
+stretch_mode = 0
 script = ExtResource("3_2ihbs")
 
 [node name="Debug Information" type="Node" parent="HUD" unique_id=1892498037]
@@ -151,11 +167,10 @@ transform = Transform3D(3, 0, -4.371139e-08, -1.3113416e-07, 1.9106855e-15, -1, 
 visible = false
 mesh = SubResource("PlaneMesh_1qy1k")
 
-[node name="Player Side" type="Node" parent="Battleground" unique_id=1674520609 node_paths=PackedStringArray("commander_marker", "unit_markers")]
+[node name="Player Side" type="Node" parent="Battleground" unique_id=1674520609 node_paths=PackedStringArray("unit_markers")]
 unique_name_in_owner = true
 script = ExtResource("9_45aep")
-commander_marker = NodePath("Commander Marker")
-unit_markers = [NodePath("Unit Marker"), NodePath("Unit Marker2"), NodePath("Unit Marker3"), NodePath("Unit Marker4")]
+unit_markers = [NodePath("Commander Marker"), NodePath("Unit Marker"), NodePath("Unit Marker2"), NodePath("Unit Marker3"), NodePath("Unit Marker4")]
 
 [node name="Unit Marker" parent="Battleground/Player Side" unique_id=2100096520 instance=ExtResource("9_1qy1k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8000001, 0, -0.4)
@@ -179,13 +194,13 @@ script = ExtResource("11_tyrfw")
 unit = NodePath("Commander")
 
 [node name="Commander" parent="Battleground/Player Side/Commander Marker" unique_id=864296948 instance=ExtResource("8_0m7cd")]
-unit_name = "player"
+script = ExtResource("14_eod45")
+unit_name = "Player Commander"
 
-[node name="Enemy Side" type="Node" parent="Battleground" unique_id=1400707726 node_paths=PackedStringArray("commander_marker", "unit_markers")]
+[node name="Enemy Side" type="Node" parent="Battleground" unique_id=1400707726 node_paths=PackedStringArray("unit_markers")]
 unique_name_in_owner = true
 script = ExtResource("9_45aep")
-commander_marker = NodePath("Commander Marker")
-unit_markers = [NodePath("Unit Marker"), NodePath("Unit Marker2"), NodePath("Unit Marker3"), NodePath("Unit Marker4")]
+unit_markers = [NodePath("Commander Marker"), NodePath("Unit Marker"), NodePath("Unit Marker2"), NodePath("Unit Marker3"), NodePath("Unit Marker4")]
 
 [node name="Unit Marker" parent="Battleground/Enemy Side" unique_id=1151876877 instance=ExtResource("9_1qy1k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -0.4)
@@ -209,8 +224,11 @@ script = ExtResource("11_tyrfw")
 unit = NodePath("Commander")
 
 [node name="Commander" parent="Battleground/Enemy Side/Commander Marker" unique_id=2018990911 instance=ExtResource("8_0m7cd")]
-unit_name = "bsry"
+script = ExtResource("14_eod45")
+unit_name = "Enemy Commander"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Battleground" unique_id=211841542]
 
-[connection signal="pressed" from="HUD/Selected Character Info/Skills/Test Skill 1" to="HUD/Selected Character Info/Skills/Test Skill 1" method="_on_pressed"]
+[connection signal="pressed" from="HUD/Selected Character Info/Skills/Skill Button 1" to="HUD/Selected Character Info/Skills/Skill Button 1" method="_on_pressed"]
+[connection signal="pressed" from="HUD/Selected Character Info/Skills/Skill Button 2" to="HUD/Selected Character Info/Skills/Skill Button 2" method="_on_pressed"]
+[connection signal="pressed" from="HUD/Selected Character Info/Skills/Skill Button 3" to="HUD/Selected Character Info/Skills/Skill Button 3" method="_on_pressed"]

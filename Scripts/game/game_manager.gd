@@ -45,6 +45,18 @@ func _ready() -> void:
 	#selected_character_icon		= %"Selected Character Icon" # Not yet
 	selected_character_name		= %"Selected Character Name"
 	
+	# Initialize all unit_markers
+	# and add all existing units into player_units
+	# or enemy_units
+	for marker in player_side.unit_markers:
+		marker.is_enemy = false
+		if is_instance_valid(marker.unit):
+			player_units.push_front(marker.unit)
+	for marker in enemy_side.unit_markers:
+		marker.is_enemy = false
+		if is_instance_valid(marker.unit):
+			enemy_units.push_front(marker.unit)
+	
 	# Initialize all the is_enemy of all units
 	for unit in player_units:	# Do for player side
 		assert(is_instance_valid(unit))
@@ -77,7 +89,7 @@ func end_turn_for_player() -> void:
 		unit.unit_turn_done = false
 	
 	# First Child should be Commander
-	var commander : Unit = player_side.commander_marker.unit;
+	var commander : Unit = player_side.unit_markers[0].unit;
 	
 	# Update debug text
 	player_info_text.text = "Player Info  | Mana: %s | Health: %s" % [player_mana, commander.health]
@@ -91,7 +103,7 @@ func end_turn_for_enemy() -> void:
 	for unit in enemy_units:
 		unit.unit_turn_done = false
 		
-	var commander : Unit = player_side.commander_marker.unit;
+	var commander : Unit = enemy_side.unit_markers[0].unit;
 	
 	# Update debug text
 	enemy_info_text.text = "Enemy Info | Mana: %s | Health: %s" % [enemy_mana, commander.health]
@@ -145,10 +157,8 @@ func toggle_selected_character_ui(unit : Unit) -> void:
 		var current_turn_units
 		if !turn: # If player turn
 			current_turn_units = player_units
-			print("PLAYER TURN RN")
 		else: 	# If enemy turn
 			current_turn_units = enemy_units
-			print("ENEMY TURN RN")
 		
 		# Check through the list of the units of the current turn
 		# (Player or enemy)
@@ -181,7 +191,16 @@ func toggle_skill_button_at_ready(index : int, active : bool) -> void:
 # depending on whether the unit has that number of skills
 func toggle_skill_button(index : int, active : bool) -> void:
 	
+	# If unit already de-selected
+	if !is_instance_valid(unit_currently_selected): return
+	
 	var skill_button = skill_buttons[index]
+	
+	var skill_number : String = "skill_%d" % (index + 1)
+	
+	# If unit HAS the skill then make the button
+	# otherwise just return out of this function
+	if !unit_currently_selected.have_skill[index]: return
 		
 	# Show or hide skill button based on "active"
 	if (skill_button != null):
@@ -197,7 +216,6 @@ func toggle_skill_button(index : int, active : bool) -> void:
 	# Set the skill_button to be the skill of the
 	# currently selected unit
 	if (unit_currently_selected != null):
-		print ("HAHAHAHA")
-		skill_button.skill = Callable(unit_currently_selected, "test_skill_1")
+		skill_button.skill = Callable(unit_currently_selected, skill_number)
 	else:
 		skill_button.skill = func(): pass # Set the skill to empty lambda
