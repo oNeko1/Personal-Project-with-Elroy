@@ -15,6 +15,11 @@ run/main_scene="uid://c7jd5salog4ci"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+DataHandler="*uid://doc5enpkcjaso"
+AudioHandler="*uid://c5f27ucx8mbtv"
+
 [global_group]
 
 Unit="Specifies this Object as a Unit"

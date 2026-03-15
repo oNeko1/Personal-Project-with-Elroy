@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SkillResource" format=3 uid="uid://d28nns6bxu3mo"]
+
+[ext_resource type="Script" uid="uid://dxqhckd2psxqd" path="res://skills/skill_resource.gd" id="1_uhprg"]
+[ext_resource type="Texture2D" uid="uid://d1thxqykmfj3q" path="res://Images/bsry_ns.png" id="1_y8b6u"]
+
+[resource]
+script = ExtResource("1_uhprg")
+skill_name = &"Slash"
+xp_cost = 120
+damage = 6
+mana_cost = 1
+icon = ExtResource("1_y8b6u")
+metadata/_custom_type_script = "uid://dxqhckd2psxqd"

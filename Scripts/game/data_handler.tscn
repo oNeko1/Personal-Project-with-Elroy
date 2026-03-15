@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://doc5enpkcjaso"]
+
+[ext_resource type="Script" uid="uid://cqo3kk3io3gd2" path="res://Scripts/data_handler.gd" id="1_witxl"]
+
+[node name="DataHandler" type="Node" unique_id=291643003]
+script = ExtResource("1_witxl")
+xp = 150
+metadata/_custom_type_script = "uid://cqo3kk3io3gd2"
